@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>CinePass – Validación de Beneficio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       PANTALLA 1: VALIDACIÓN / CARGA
+  ═══════════════════════════════════════════ -->
+  <section id="screen-validation" class="screen active">
+    <div class="screen-inner validation-inner">
+
+      <div class="brand-badge">
+        <span class="brand-icon">◆</span>
+        <span class="brand-name">CinePass</span>
+      </div>
+
+      <div class="validation-card glass">
+        <p class="validation-label">Validando beneficio</p>
+        <h1 class="validation-title">Promoción <span class="gold">Septiembre</span></h1>
+        <p class="validation-sub">Titulares con cumpleaños en septiembre</p>
+
+        <div class="progress-wrap">
+          <div class="progress-bar" id="progressBar"></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+
+        <ul class="check-list" id="checkList">
+          <li class="check-item" id="chk0"><span class="check-icon">○</span> Conectando…</li>
+          <li class="check-item" id="chk1"><span class="check-icon">○</span> Verificando fecha de nacimiento…</li>
+          <li class="check-item" id="chk2"><span class="check-icon">○</span> Consultando disponibilidad…</li>
+          <li class="check-item" id="chk3"><span class="check-icon">○</span> Validando promoción…</li>
+          <li class="check-item" id="chk4"><span class="check-icon">○</span> Preparando beneficio…</li>
+        </ul>
+
+        <div class="found-badge glass hidden" id="foundBadge">
+          <p class="found-label">Beneficio encontrado para:</p>
+          <p class="found-name gold">Paloma</p>
+        </div>
+
+        <button class="btn-primary hidden" id="btnContinuar" onclick="goToScreen2()">
+          <span>CONTINUAR</span>
+          <span class="btn-ripple"></span>
+        </button>
+      </div>
+
+      <p class="footer-note">Promoción exclusiva · Uso personal · No transferible</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PANTALLA 2: SOBRE
+  ═══════════════════════════════════════════ -->
+  <section id="screen-envelope" class="screen">
+    <div class="screen-inner envelope-inner">
+
+      <div class="brand-badge">
+        <span class="brand-icon">◆</span>
+        <span class="brand-name">CinePass</span>
+      </div>
+
+      <p class="envelope-pre">Antes de habilitar tu beneficio…</p>
+      <p class="envelope-sub">alguien quiso dejarte un mensaje.</p>
+
+      <div class="envelope-wrap" id="envelopeWrap">
+        <!-- Sobre SVG animado -->
+        <div class="envelope" id="envelope">
+          <div class="envelope-flap" id="envelopeFlap"></div>
+          <div class="envelope-body">
+            <div class="envelope-seal">❤</div>
+          </div>
+          <div class="envelope-letter" id="envelopeLetter">
+            <span class="letter-lines">
+              <span></span><span></span><span></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btnAbrir" onclick="openEnvelope()">
+        <span>ABRIR</span>
+        <span class="btn-ripple"></span>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PANTALLA 3: CARTA / MÁQUINA DE ESCRIBIR
+  ═══════════════════════════════════════════ -->
+  <section id="screen-letter" class="screen screen-dark">
+    <div class="screen-inner letter-inner">
+
+      <div class="typewriter-stage" id="typewriterStage">
+        <!-- Las frases se inyectan por JS -->
+      </div>
+
+      <div class="heart-reveal hidden" id="heartReveal">
+        <div class="big-heart" id="bigHeart">❤</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PANTALLA 4: LA PREGUNTA
+  ═══════════════════════════════════════════ -->
+  <section id="screen-question" class="screen screen-dark">
+    <div class="screen-inner question-inner">
+
+      <p class="question-name gold">Paloma…</p>
+      <h2 class="question-main">¿Querés ser<br>mi novia?</h2>
+
+      <div class="question-buttons">
+        <button class="btn-yes" id="btnYes" onclick="goToScreen5()">
+          Sí ❤️
+          <span class="btn-ripple"></span>
+        </button>
+        <button class="btn-no" id="btnNo" onclick="noEscape(event)">
+          No
+        </button>
+      </div>
+
+      <p class="no-msg hidden" id="noMsg">Creo que esa respuesta tiene un pequeño problema 😅</p>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PANTALLA 5: SÍ ❤️
+  ═══════════════════════════════════════════ -->
+  <section id="screen-yes" class="screen screen-yes">
+    <canvas id="confettiCanvas"></canvas>
+    <div id="heartsContainer"></div>
+
+    <div class="screen-inner yes-inner">
+      <div class="yes-card glass">
+        <p class="yes-letter">
+          No había ningún beneficio.<br>
+          No había entradas de regalo.<br><br>
+          Todo esto era una pequeña excusa para preguntarte algo que hace mucho quería decirte.<br><br>
+          Gracias por hacerme tan feliz.<br>
+          Espero que este sea el comienzo de una historia hermosa.<br><br>
+          <em>Paloma…</em><br>
+          ¿Querés escribir conmigo el próximo capítulo de nuestra historia?<br><br>
+          Con amor,<br>
+          <strong class="gold">Elías ❤️</strong>
+        </p>
+        <div class="yes-footer">
+          Ahora oficialmente somos novios ❤️
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
